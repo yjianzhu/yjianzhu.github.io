@@ -2,33 +2,32 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>poem on yjianzhu&#39;s page</title>
-    <link>http://home.ustc.edu.cn/~yjianzhu/tags/poem/</link>
+    <link>http://yjianzhu.github.io/tags/poem/</link>
     <description>Recent content in poem on yjianzhu&#39;s page</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 22 Sep 2021 15:34:05 +0800</lastBuildDate><atom:link href="http://home.ustc.edu.cn/~yjianzhu/tags/poem/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 22 Sep 2021 15:34:05 +0800</lastBuildDate><atom:link href="http://yjianzhu.github.io/tags/poem/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>MidAutumn</title>
-      <link>http://home.ustc.edu.cn/~yjianzhu/p/midautumn/</link>
+      <link>http://yjianzhu.github.io/p/midautumn/</link>
       <pubDate>Wed, 22 Sep 2021 15:34:05 +0800</pubDate>
       
-      <guid>http://home.ustc.edu.cn/~yjianzhu/p/midautumn/</guid>
+      <guid>http://yjianzhu.github.io/p/midautumn/</guid>
       <description>八月十五日夜湓亭望月 白居易
 昔年八月十五夜，曲江池畔杏园边。
 今年八月十五夜，湓浦沙头水馆前。
 西北望乡何处是，东南见月几回圆？
 临风一叹无人会，今夜清光似往年。
-图片1
-嫦娥 云母屏风烛影深，长河渐落晓星沉。
+图片1嫦娥 云母屏风烛影深，长河渐落晓星沉。
 嫦娥应悔偷灵药，碧海青天夜夜心。</description>
     </item>
     
     <item>
       <title>Init</title>
-      <link>http://home.ustc.edu.cn/~yjianzhu/p/init/</link>
+      <link>http://yjianzhu.github.io/p/init/</link>
       <pubDate>Thu, 16 Sep 2021 15:43:07 +0800</pubDate>
       
-      <guid>http://home.ustc.edu.cn/~yjianzhu/p/init/</guid>
+      <guid>http://yjianzhu.github.io/p/init/</guid>
       <description>个人博客记录人生 有趣的灵魂，从不自卑。
 渔家傲 天接云涛连晓雾，星河欲转千帆舞。仿佛梦魂归帝所。闻天语，殷勤问我归何处。
 我报路长嗟日暮，学诗谩有惊人句。九万里风鹏正举。风休住，蓬舟吹取三山去！</description>

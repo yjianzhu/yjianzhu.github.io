@@ -2,29 +2,29 @@
 <html lang="en-us">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='使用NFS (Network File System) 挂载远程文件夹 安装NFS 在服务端和客户端同时安装nfs。
-sudo apt install nfs-kernel-serversudo firewall-cmd --permanent --add-service=nfs //开启防火墙放行sudo firewall-cmd --reload //重载防火墙 服务端创建共享文件夹并添加配置
-mkdir NFS_share //可以自定义名称sudo vim /etc/exports //修改这个文件并写入下面这一行，注意更换左边的绝对路径 和第二个客户端的ip地址/home/yongjian/NFS_share 144.214.24.68(rw,no_root_squash,async)  重新打开 nfs服务
-sudo systemctl restart nfs-server.service 在客户端配置 mkdir NFS_sharesudo mount -t nfs 144.214.24.92:/home/yongjian/NFS_share /home/yongjian/NFS_share/ //这里ip地址是服务端的ip，即把服务端文件夹挂载到本地NFS_share文件夹。前后都用绝对路径 或者编写 /etc/fstab文件实现开机挂载。
+sudo apt install nfs-kernel-serversudo firewall-cmd --permanent --add-service=nfs //开启防火墙放行sudo firewall-cmd --reload //重载防火墙服务端创建共享文件夹并添加配置
+mkdir NFS_share //可以自定义名称sudo vim /etc/exports //修改这个文件并写入下面这一行，注意更换左边的绝对路径 和第二个客户端的ip地址/home/yongjian/NFS_share 144.214.24.68(rw,no_root_squash,async) 重新打开 nfs服务
+sudo systemctl restart nfs-server.service在客户端配置 mkdir NFS_sharesudo mount -t nfs 144.214.24.92:/home/yongjian/NFS_share /home/yongjian/NFS_share/ //这里ip地址是服务端的ip，即把服务端文件夹挂载到本地NFS_share文件夹。前后都用绝对路径或者编写 /etc/fstab文件实现开机挂载。
 144.214.24.92:/home/yongjian/NFS_share/ /home/yongjian/NFS_share nfs defaults 0 1 '><title>NFS remote mount</title>
 
-<link rel='canonical' href='http://home.ustc.edu.cn/~yjianzhu/p/nfs-remote-mount/'>
+<link rel='canonical' href='http://yjianzhu.github.io/p/nfs-remote-mount/'>
 
-<link rel="stylesheet" href="/~yjianzhu/scss/style.min.css"><meta property='og:title' content='NFS remote mount'>
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='NFS remote mount'>
 <meta property='og:description' content='使用NFS (Network File System) 挂载远程文件夹 安装NFS 在服务端和客户端同时安装nfs。
-sudo apt install nfs-kernel-serversudo firewall-cmd --permanent --add-service=nfs //开启防火墙放行sudo firewall-cmd --reload //重载防火墙 服务端创建共享文件夹并添加配置
-mkdir NFS_share //可以自定义名称sudo vim /etc/exports //修改这个文件并写入下面这一行，注意更换左边的绝对路径 和第二个客户端的ip地址/home/yongjian/NFS_share 144.214.24.68(rw,no_root_squash,async)  重新打开 nfs服务
-sudo systemctl restart nfs-server.service 在客户端配置 mkdir NFS_sharesudo mount -t nfs 144.214.24.92:/home/yongjian/NFS_share /home/yongjian/NFS_share/ //这里ip地址是服务端的ip，即把服务端文件夹挂载到本地NFS_share文件夹。前后都用绝对路径 或者编写 /etc/fstab文件实现开机挂载。
+sudo apt install nfs-kernel-serversudo firewall-cmd --permanent --add-service=nfs //开启防火墙放行sudo firewall-cmd --reload //重载防火墙服务端创建共享文件夹并添加配置
+mkdir NFS_share //可以自定义名称sudo vim /etc/exports //修改这个文件并写入下面这一行，注意更换左边的绝对路径 和第二个客户端的ip地址/home/yongjian/NFS_share 144.214.24.68(rw,no_root_squash,async) 重新打开 nfs服务
+sudo systemctl restart nfs-server.service在客户端配置 mkdir NFS_sharesudo mount -t nfs 144.214.24.92:/home/yongjian/NFS_share /home/yongjian/NFS_share/ //这里ip地址是服务端的ip，即把服务端文件夹挂载到本地NFS_share文件夹。前后都用绝对路径或者编写 /etc/fstab文件实现开机挂载。
 144.214.24.92:/home/yongjian/NFS_share/ /home/yongjian/NFS_share nfs defaults 0 1 '>
-<meta property='og:url' content='http://home.ustc.edu.cn/~yjianzhu/p/nfs-remote-mount/'>
+<meta property='og:url' content='http://yjianzhu.github.io/p/nfs-remote-mount/'>
 <meta property='og:site_name' content='yjianzhu&#39;s page'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux' /><meta property='article:tag' content='work' /><meta property='article:published_time' content='2021-11-01T15:34:05&#43;08:00'/><meta property='article:modified_time' content='2021-11-01T15:34:05&#43;08:00'/><meta property='og:image' content='http://home.ustc.edu.cn/~yjianzhu/Figure/RepulseBay/1.jpg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux' /><meta property='article:tag' content='work' /><meta property='article:published_time' content='2021-11-01T15:34:05&#43;08:00'/><meta property='article:modified_time' content='2021-11-01T15:34:05&#43;08:00'/><meta property='og:image' content='http://yjianzhu.github.io/Figure/RepulseBay/1.jpg' />
 <meta name="twitter:title" content="NFS remote mount">
 <meta name="twitter:description" content="使用NFS (Network File System) 挂载远程文件夹 安装NFS 在服务端和客户端同时安装nfs。
-sudo apt install nfs-kernel-serversudo firewall-cmd --permanent --add-service=nfs //开启防火墙放行sudo firewall-cmd --reload //重载防火墙 服务端创建共享文件夹并添加配置
-mkdir NFS_share //可以自定义名称sudo vim /etc/exports //修改这个文件并写入下面这一行，注意更换左边的绝对路径 和第二个客户端的ip地址/home/yongjian/NFS_share 144.214.24.68(rw,no_root_squash,async)  重新打开 nfs服务
-sudo systemctl restart nfs-server.service 在客户端配置 mkdir NFS_sharesudo mount -t nfs 144.214.24.92:/home/yongjian/NFS_share /home/yongjian/NFS_share/ //这里ip地址是服务端的ip，即把服务端文件夹挂载到本地NFS_share文件夹。前后都用绝对路径 或者编写 /etc/fstab文件实现开机挂载。
+sudo apt install nfs-kernel-serversudo firewall-cmd --permanent --add-service=nfs //开启防火墙放行sudo firewall-cmd --reload //重载防火墙服务端创建共享文件夹并添加配置
+mkdir NFS_share //可以自定义名称sudo vim /etc/exports //修改这个文件并写入下面这一行，注意更换左边的绝对路径 和第二个客户端的ip地址/home/yongjian/NFS_share 144.214.24.68(rw,no_root_squash,async) 重新打开 nfs服务
+sudo systemctl restart nfs-server.service在客户端配置 mkdir NFS_sharesudo mount -t nfs 144.214.24.92:/home/yongjian/NFS_share /home/yongjian/NFS_share/ //这里ip地址是服务端的ip，即把服务端文件夹挂载到本地NFS_share文件夹。前后都用绝对路径或者编写 /etc/fstab文件实现开机挂载。
 144.214.24.92:/home/yongjian/NFS_share/ /home/yongjian/NFS_share nfs defaults 0 1 "><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='http://home.ustc.edu.cn/~yjianzhu/Figure/RepulseBay/1.jpg' />
+    <meta name="twitter:image" content='http://yjianzhu.github.io/Figure/RepulseBay/1.jpg' />
     <link rel="shortcut icon" href="Onion.ico" />
 
     </head>
@@ -60,7 +60,7 @@ sudo systemctl restart nfs-server.service 在客户端配置 mkdir NFS_sharesu
 ">
     
         <div id="article-toolbar">
-            <a href="http://home.ustc.edu.cn/~yjianzhu" class="back-home">
+            <a href="http://yjianzhu.github.io" class="back-home">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <polyline points="15 6 9 12 15 18" />
@@ -76,9 +76,9 @@ sudo systemctl restart nfs-server.service 在客户端配置 mkdir NFS_sharesu
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/~yjianzhu/p/nfs-remote-mount/">
+            <a href="/p/nfs-remote-mount/">
                 
-                    <img src="/~yjianzhu/Figure/RepulseBay/1.jpg" loading="lazy" alt="Featured image of post NFS remote mount" />
+                    <img src="/Figure/RepulseBay/1.jpg" loading="lazy" alt="Featured image of post NFS remote mount" />
                 
             </a>
         </div>
@@ -88,7 +88,7 @@ sudo systemctl restart nfs-server.service 在客户端配置 mkdir NFS_sharesu
     
 
     <h2 class="article-title">
-        <a href="/~yjianzhu/p/nfs-remote-mount/">NFS remote mount</a>
+        <a href="/p/nfs-remote-mount/">NFS remote mount</a>
     </h2>
 
     
@@ -160,9 +160,9 @@ sudo mount -t nfs 144.214.24.92:/home/yongjian/NFS_share /home/yongjian/NFS_shar
     
     <section class="article-tags">
         
-            <a href="/~yjianzhu/tags/linux/">Linux</a>
+            <a href="/tags/linux/">Linux</a>
         
-            <a href="/~yjianzhu/tags/work/">work</a>
+            <a href="/tags/work/">work</a>
         
     </section>
 
@@ -224,7 +224,7 @@ sudo mount -t nfs 144.214.24.92:/home/yongjian/NFS_share /home/yongjian/NFS_shar
         
             2020 - 
         
-        2022 yjianzhu&#39;s page
+        2023 yjianzhu&#39;s page
     </section>
     
     <section class="powerby">
@@ -347,7 +347,7 @@ sudo mount -t nfs 144.214.24.92:/home/yongjian/NFS_share /home/yongjian/NFS_shar
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
                 defer="false"
                 >
-            </script><script type="text/javascript" src="/~yjianzhu/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
 
 <script>
     (function () {
