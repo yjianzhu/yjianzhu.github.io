@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>work on yjianzhu&#39;s page</title>
+    <link>http://home.ustc.edu.cn/~yjianzhu/tags/work/</link>
+    <description>Recent content in work on yjianzhu&#39;s page</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 01 Nov 2021 15:34:05 +0800</lastBuildDate><atom:link href="http://home.ustc.edu.cn/~yjianzhu/tags/work/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NFS remote mount</title>
+      <link>http://home.ustc.edu.cn/~yjianzhu/p/nfs-remote-mount/</link>
+      <pubDate>Mon, 01 Nov 2021 15:34:05 +0800</pubDate>
+      
+      <guid>http://home.ustc.edu.cn/~yjianzhu/p/nfs-remote-mount/</guid>
+      <description>使用NFS (Network File System) 挂载远程文件夹 安装NFS 在服务端和客户端同时安装nfs。
+sudo apt install nfs-kernel-serversudo firewall-cmd --permanent --add-service=nfs //开启防火墙放行sudo firewall-cmd --reload //重载防火墙 服务端创建共享文件夹并添加配置
+mkdir NFS_share //可以自定义名称sudo vim /etc/exports //修改这个文件并写入下面这一行，注意更换左边的绝对路径 和第二个客户端的ip地址/home/yongjian/NFS_share 144.214.24.68(rw,no_root_squash,async)  重新打开 nfs服务
+sudo systemctl restart nfs-server.service 在客户端配置 mkdir NFS_sharesudo mount -t nfs 144.214.24.92:/home/yongjian/NFS_share /home/yongjian/NFS_share/ //这里ip地址是服务端的ip，即把服务端文件夹挂载到本地NFS_share文件夹。前后都用绝对路径 或者编写 /etc/fstab文件实现开机挂载。
+144.214.24.92:/home/yongjian/NFS_share/ /home/yongjian/NFS_share nfs defaults 0 1 </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on yjianzhu&#39;s page</title>
+    <link>http://home.ustc.edu.cn/~yjianzhu/tags/linux/</link>
+    <description>Recent content in Linux on yjianzhu&#39;s page</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 28 Dec 2021 15:32:22 +0800</lastBuildDate><atom:link href="http://home.ustc.edu.cn/~yjianzhu/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Slurm</title>
+      <link>http://home.ustc.edu.cn/~yjianzhu/p/slurm/</link>
+      <pubDate>Tue, 28 Dec 2021 15:32:22 +0800</pubDate>
+      
+      <guid>http://home.ustc.edu.cn/~yjianzhu/p/slurm/</guid>
+      <description>need to be sloved 守护进程slurmctld 从systemctl 启动一直timeout，只能手动启动 尝试用init.d 启动
+Slurm 简介 Slurm是一个开源，容错，高度可扩展的集群管理和作业调度系统，适用于大型和小型Linux集群。Slurm不需要对其操作进行内核修改，并且相对独立。作为集群工作负载管理器，Slurm有三个关键功能。首先，它在一段时间内为用户分配对资源（计算节点）的独占和/或非独占访问，以便他们可以执行工作。其次，它提供了一个框架，用于在分配的节点集上启动，执行和监视工作（通常是并行作业）。最后，它通过管理待处理工作的队列来仲裁资源争用。
+架构 如图1所示，Slurm包含在每个计算节点上运行的slurmd守护程序和在管理节点上运行的中央slurmctld守护程序（带有可选的故障转移双胞胎）。该slurmd守护程序提供容错层次通信。用户命令包括：sacct，salloc，sattach，sbatch，sbcast，scancel，scontrol， sinfo，SMAP，SQUEUE，SRUN，strigger 和sview。所有命令都可以在群集中的任何位置运行。
+安装 slurm introduction
+sudo apt install munge sudo apt install slurm-wlm  在节点上配置启动munge Install MUNGE for authentication. Make sure that all nodes in your cluster have the same munge.key. Make sure the MUNGE daemon, munged, is started before you start the Slurm daemons.
+在主节点运行create-munge-key,再 systemctl enable munge 打开munge.拷贝/etc/munge/munge.key 到各个计算节点。
+munge -n munge -n | unmunge munge -n | ssh cityu14 unmunge  配置slurm 确保所有节点有同一个用户名，且他们的uid和gid都是统一的。</description>
+    </item>
+    
+    <item>
+      <title>NFS remote mount</title>
+      <link>http://home.ustc.edu.cn/~yjianzhu/p/nfs-remote-mount/</link>
+      <pubDate>Mon, 01 Nov 2021 15:34:05 +0800</pubDate>
+      
+      <guid>http://home.ustc.edu.cn/~yjianzhu/p/nfs-remote-mount/</guid>
+      <description>使用NFS (Network File System) 挂载远程文件夹 安装NFS 在服务端和客户端同时安装nfs。
+sudo apt install nfs-kernel-serversudo firewall-cmd --permanent --add-service=nfs //开启防火墙放行sudo firewall-cmd --reload //重载防火墙 服务端创建共享文件夹并添加配置
+mkdir NFS_share //可以自定义名称sudo vim /etc/exports //修改这个文件并写入下面这一行，注意更换左边的绝对路径 和第二个客户端的ip地址/home/yongjian/NFS_share 144.214.24.68(rw,no_root_squash,async)  重新打开 nfs服务
+sudo systemctl restart nfs-server.service 在客户端配置 mkdir NFS_sharesudo mount -t nfs 144.214.24.92:/home/yongjian/NFS_share /home/yongjian/NFS_share/ //这里ip地址是服务端的ip，即把服务端文件夹挂载到本地NFS_share文件夹。前后都用绝对路径 或者编写 /etc/fstab文件实现开机挂载。
+144.214.24.92:/home/yongjian/NFS_share/ /home/yongjian/NFS_share nfs defaults 0 1 </description>
+    </item>
+    
+  </channel>
+</rss>

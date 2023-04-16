@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='need to be sloved 守护进程slurmctld 从systemctl 启动一直timeout，只能手动启动 尝试用init.d 启动
+Slurm 简介 Slurm是一个开源，容错，高度可扩展的集群管理和作业调度系统，适用于大型和小型Linux集群。Slurm不需要对其操作进行内核修改，并且相对独立。作为集群工作负载管理器，Slurm有三个关键功能。首先，它在一段时间内为用户分配对资源（计算节点）的独占和/或非独占访问，以便他们可以执行工作。其次，它提供了一个框架，用于在分配的节点集上启动，执行和监视工作（通常是并行作业）。最后，它通过管理待处理工作的队列来仲裁资源争用。
+架构 如图1所示，Slurm包含在每个计算节点上运行的slurmd守护程序和在管理节点上运行的中央slurmctld守护程序（带有可选的故障转移双胞胎）。该slurmd守护程序提供容错层次通信。用户命令包括：sacct，salloc，sattach，sbatch，sbcast，scancel，scontrol， sinfo，SMAP，SQUEUE，SRUN，strigger 和sview。所有命令都可以在群集中的任何位置运行。
+安装 slurm introduction
+sudo apt install munge sudo apt install slurm-wlm  在节点上配置启动munge Install MUNGE for authentication. Make sure that all nodes in your cluster have the same munge.key. Make sure the MUNGE daemon, munged, is started before you start the Slurm daemons.
+在主节点运行create-munge-key,再 systemctl enable munge 打开munge.拷贝/etc/munge/munge.key 到各个计算节点。
+munge -n munge -n | unmunge munge -n | ssh cityu14 unmunge  配置slurm 确保所有节点有同一个用户名，且他们的uid和gid都是统一的。'><title>Slurm</title>
+
+<link rel='canonical' href='http://home.ustc.edu.cn/~yjianzhu/p/slurm/'>
+
+<link rel="stylesheet" href="/~yjianzhu/scss/style.min.css"><meta property='og:title' content='Slurm'>
+<meta property='og:description' content='need to be sloved 守护进程slurmctld 从systemctl 启动一直timeout，只能手动启动 尝试用init.d 启动
+Slurm 简介 Slurm是一个开源，容错，高度可扩展的集群管理和作业调度系统，适用于大型和小型Linux集群。Slurm不需要对其操作进行内核修改，并且相对独立。作为集群工作负载管理器，Slurm有三个关键功能。首先，它在一段时间内为用户分配对资源（计算节点）的独占和/或非独占访问，以便他们可以执行工作。其次，它提供了一个框架，用于在分配的节点集上启动，执行和监视工作（通常是并行作业）。最后，它通过管理待处理工作的队列来仲裁资源争用。
+架构 如图1所示，Slurm包含在每个计算节点上运行的slurmd守护程序和在管理节点上运行的中央slurmctld守护程序（带有可选的故障转移双胞胎）。该slurmd守护程序提供容错层次通信。用户命令包括：sacct，salloc，sattach，sbatch，sbcast，scancel，scontrol， sinfo，SMAP，SQUEUE，SRUN，strigger 和sview。所有命令都可以在群集中的任何位置运行。
+安装 slurm introduction
+sudo apt install munge sudo apt install slurm-wlm  在节点上配置启动munge Install MUNGE for authentication. Make sure that all nodes in your cluster have the same munge.key. Make sure the MUNGE daemon, munged, is started before you start the Slurm daemons.
+在主节点运行create-munge-key,再 systemctl enable munge 打开munge.拷贝/etc/munge/munge.key 到各个计算节点。
+munge -n munge -n | unmunge munge -n | ssh cityu14 unmunge  配置slurm 确保所有节点有同一个用户名，且他们的uid和gid都是统一的。'>
+<meta property='og:url' content='http://home.ustc.edu.cn/~yjianzhu/p/slurm/'>
+<meta property='og:site_name' content='yjianzhu&#39;s page'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux' /><meta property='article:tag' content='Software' /><meta property='article:published_time' content='2021-12-28T15:32:22&#43;08:00'/><meta property='article:modified_time' content='2021-12-28T15:32:22&#43;08:00'/><meta property='og:image' content='http://home.ustc.edu.cn/~yjianzhu/Figure/slurm/slurm.png' />
+<meta name="twitter:title" content="Slurm">
+<meta name="twitter:description" content="need to be sloved 守护进程slurmctld 从systemctl 启动一直timeout，只能手动启动 尝试用init.d 启动
+Slurm 简介 Slurm是一个开源，容错，高度可扩展的集群管理和作业调度系统，适用于大型和小型Linux集群。Slurm不需要对其操作进行内核修改，并且相对独立。作为集群工作负载管理器，Slurm有三个关键功能。首先，它在一段时间内为用户分配对资源（计算节点）的独占和/或非独占访问，以便他们可以执行工作。其次，它提供了一个框架，用于在分配的节点集上启动，执行和监视工作（通常是并行作业）。最后，它通过管理待处理工作的队列来仲裁资源争用。
+架构 如图1所示，Slurm包含在每个计算节点上运行的slurmd守护程序和在管理节点上运行的中央slurmctld守护程序（带有可选的故障转移双胞胎）。该slurmd守护程序提供容错层次通信。用户命令包括：sacct，salloc，sattach，sbatch，sbcast，scancel，scontrol， sinfo，SMAP，SQUEUE，SRUN，strigger 和sview。所有命令都可以在群集中的任何位置运行。
+安装 slurm introduction
+sudo apt install munge sudo apt install slurm-wlm  在节点上配置启动munge Install MUNGE for authentication. Make sure that all nodes in your cluster have the same munge.key. Make sure the MUNGE daemon, munged, is started before you start the Slurm daemons.
+在主节点运行create-munge-key,再 systemctl enable munge 打开munge.拷贝/etc/munge/munge.key 到各个计算节点。
+munge -n munge -n | unmunge munge -n | ssh cityu14 unmunge  配置slurm 确保所有节点有同一个用户名，且他们的uid和gid都是统一的。"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://home.ustc.edu.cn/~yjianzhu/Figure/slurm/slurm.png' />
+    <link rel="shortcut icon" href="Onion.ico" />
+
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="http://home.ustc.edu.cn/~yjianzhu" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/~yjianzhu/p/slurm/">
+                
+                    <img src="/~yjianzhu/Figure/slurm/slurm.png" loading="lazy" alt="Featured image of post Slurm" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+
+    <h2 class="article-title">
+        <a href="/~yjianzhu/p/slurm/">Slurm</a>
+    </h2>
+
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Dec 28, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <h3 id="need-to-be-sloved">need to be sloved</h3>
+<p>守护进程slurmctld 从systemctl 启动一直timeout，只能手动启动
+尝试用init.d 启动</p>
+<h1 id="slurm-简介">Slurm 简介</h1>
+<p>Slurm是一个开源，容错，高度可扩展的集群管理和作业调度系统，适用于大型和小型Linux集群。Slurm不需要对其操作进行内核修改，并且相对独立。作为集群工作负载管理器，Slurm有三个关键功能。首先，它在一段时间内为用户分配对资源（计算节点）的独占和/或非独占访问，以便他们可以执行工作。其次，它提供了一个框架，用于在分配的节点集上启动，执行和监视工作（通常是并行作业）。最后，它通过管理待处理工作的队列来仲裁资源争用。</p>
+<h1 id="架构">架构</h1>
+<p>如图1所示，Slurm包含在每个计算节点上运行的slurmd守护程序和在管理节点上运行的中央slurmctld守护程序（带有可选的故障转移双胞胎）。该slurmd守护程序提供容错层次通信。用户命令包括：sacct，salloc，sattach，sbatch，sbcast，scancel，scontrol， sinfo，SMAP，SQUEUE，SRUN，strigger 和sview。所有命令都可以在群集中的任何位置运行。</p>
+<h1 id="安装">安装</h1>
+<p><a class="link" href="https://slurm.schedmd.com/quickstart_admin.html"  target="_blank" rel="noopener"
+    >slurm introduction</a></p>
+<pre><code>sudo apt install munge
+sudo apt install slurm-wlm
+</code></pre>
+<h1 id="在节点上配置启动munge">在节点上配置启动munge</h1>
+<p>Install MUNGE for authentication. Make sure that all nodes in your cluster have the same munge.key. Make sure the MUNGE daemon, munged, is started before you start the Slurm daemons.</p>
+<p>在主节点运行create-munge-key,再 <code>systemctl enable munge</code> 打开munge.拷贝/etc/munge/munge.key 到各个计算节点。</p>
+<pre><code>munge -n
+munge -n | unmunge
+munge -n | ssh cityu14 unmunge
+</code></pre>
+<h1 id="配置slurm">配置slurm</h1>
+<p>确保所有节点有同一个用户名，且他们的uid和gid都是统一的。</p>
+<pre><code>usermod -u 1006 slurm
+groupmod -g 1006 slurm
+</code></pre>
+<p>将<code>slurm.conf</code>移动到<code>/etc/slurm-llnl/</code>目录。</p>
+<pre><code>sudo slurmctld -c -D
+sudo slurmd -D
+</code></pre>
+<p>给配置文件中的存储数据文件夹，更改权限</p>
+<pre><code>sudo mkdir /var/run/slurm-llnl/
+sudo chown slurm /var/run/slurm-llnl
+sudo mkdir /var/spool/slurm-llnl
+sudo chown slurm /var/spool/slurm-llnl
+</code></pre>
+<p>如果修改了配置文件，可以使用<code>scontrol reconfig</code>
+这两个守护进程看看有没有报错，没有就可以在后台开启slurm了</p>
+<pre><code>sudo systemctl enable slurmctld
+sudo systemctl enable slurmd
+</code></pre>
+<h2 id="部署全局文件系统">部署全局文件系统</h2>
+<p>参考之前的NFS设置
+注意防火墙规则，即使只有内网权限的ip地址，也需要注意端口是否开放</p>
+<pre><code>sudo apt install firewalld
+firewall-cmd --query-port=6817/tcp  #查看是否打开这个端口
+firewall-cmd --add-port=6817/tcp --permanent #打开这个端口
+firewall-cmd --reload
+</code></pre>
+<h1 id="slurm-使用">slurm 使用</h1>
+<table>
+<thead>
+<tr>
+<th>Slurm命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sinfo</td>
+<td>查看集群分区状态</td>
+</tr>
+<tr>
+<td>squeue</td>
+<td>查看作业队列</td>
+</tr>
+<tr>
+<td>srun, salloc</td>
+<td>交互式运行作业</td>
+</tr>
+<tr>
+<td>sbatch</td>
+<td>提交作业</td>
+</tr>
+<tr>
+<td>scancel</td>
+<td>取消作业</td>
+</tr>
+<tr>
+<td>scontrol</td>
+<td>查看和修改作业参数</td>
+</tr>
+<tr>
+<td>sacct</td>
+<td>查看已完成作业</td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-环境变量管理">module 环境变量管理</h2>
+<pre><code>sudo apt install environment-modules
+</code></pre>
+<p>注意，必须重新打开窗口才可以使用
+设置module path</p>
+<pre><code>export MODULEPATH=$MODULEPATH:/sec/NFS_share/moduleFile
+</code></pre>
+<h2 id="sbatch-提交任务">sbatch 提交任务</h2>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/~yjianzhu/tags/linux/">Linux</a>
+        
+            <a href="/~yjianzhu/tags/software/">software</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css"integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js"integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8"crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js"integrity="sha384-vZTG03m&#43;2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl"crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+     
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2022 yjianzhu&#39;s page
+    </section>
+    
+    <section class="powerby">
+        
+    </section>
+</footer>
+  
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Table of contents</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li>
+      <ol>
+        <li><a href="#need-to-be-sloved">need to be sloved</a></li>
+      </ol>
+    </li>
+  </ol>
+
+  <ol>
+    <li><a href="#部署全局文件系统">部署全局文件系统</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#module-环境变量管理">module 环境变量管理</a></li>
+    <li><a href="#sbatch-提交任务">sbatch 提交任务</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/~yjianzhu/ts/main.js" defer></script>
+
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
