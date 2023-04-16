@@ -6,6 +6,7 @@
     <description>Recent content in Posts on yjianzhu&#39;s page</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+<<<<<<< HEAD
     <lastBuildDate>Sun, 16 Apr 2023 23:06:38 +0800</lastBuildDate><atom:link href="http://yjianzhu.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Github</title>
@@ -18,6 +19,9 @@ ustc 资源github这个系统整理了ustc的资源
 这两天收到邮寄，毕业生转校友，email 容量降低到1g，附带的网盘关闭，ftp和个人网页关闭，这也是我从home.ustc.edu.cn/~yjianzhu 转到这里的原因。</description>
     </item>
     
+=======
+    <lastBuildDate>Fri, 04 Mar 2022 15:52:53 +0800</lastBuildDate><atom:link href="http://yjianzhu.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+>>>>>>> ce1b5ad69a86c27b0b7c7d06c725168ef762368f
     <item>
       <title>Tea_stain</title>
       <link>http://yjianzhu.github.io/p/tea_stain/</link>
