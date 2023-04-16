@@ -5,32 +5,32 @@
 Slurm 简介 Slurm是一个开源，容错，高度可扩展的集群管理和作业调度系统，适用于大型和小型Linux集群。Slurm不需要对其操作进行内核修改，并且相对独立。作为集群工作负载管理器，Slurm有三个关键功能。首先，它在一段时间内为用户分配对资源（计算节点）的独占和/或非独占访问，以便他们可以执行工作。其次，它提供了一个框架，用于在分配的节点集上启动，执行和监视工作（通常是并行作业）。最后，它通过管理待处理工作的队列来仲裁资源争用。
 架构 如图1所示，Slurm包含在每个计算节点上运行的slurmd守护程序和在管理节点上运行的中央slurmctld守护程序（带有可选的故障转移双胞胎）。该slurmd守护程序提供容错层次通信。用户命令包括：sacct，salloc，sattach，sbatch，sbcast，scancel，scontrol， sinfo，SMAP，SQUEUE，SRUN，strigger 和sview。所有命令都可以在群集中的任何位置运行。
 安装 slurm introduction
-sudo apt install munge sudo apt install slurm-wlm  在节点上配置启动munge Install MUNGE for authentication. Make sure that all nodes in your cluster have the same munge.key. Make sure the MUNGE daemon, munged, is started before you start the Slurm daemons.
+sudo apt install munge sudo apt install slurm-wlm 在节点上配置启动munge Install MUNGE for authentication. Make sure that all nodes in your cluster have the same munge.key. Make sure the MUNGE daemon, munged, is started before you start the Slurm daemons.
 在主节点运行create-munge-key,再 systemctl enable munge 打开munge.拷贝/etc/munge/munge.key 到各个计算节点。
-munge -n munge -n | unmunge munge -n | ssh cityu14 unmunge  配置slurm 确保所有节点有同一个用户名，且他们的uid和gid都是统一的。'><title>Slurm</title>
+munge -n munge -n | unmunge munge -n | ssh cityu14 unmunge 配置slurm 确保所有节点有同一个用户名，且他们的uid和gid都是统一的。'><title>Slurm</title>
 
-<link rel='canonical' href='http://home.ustc.edu.cn/~yjianzhu/p/slurm/'>
+<link rel='canonical' href='http://yjianzhu.github.io/p/slurm/'>
 
-<link rel="stylesheet" href="/~yjianzhu/scss/style.min.css"><meta property='og:title' content='Slurm'>
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Slurm'>
 <meta property='og:description' content='need to be sloved 守护进程slurmctld 从systemctl 启动一直timeout，只能手动启动 尝试用init.d 启动
 Slurm 简介 Slurm是一个开源，容错，高度可扩展的集群管理和作业调度系统，适用于大型和小型Linux集群。Slurm不需要对其操作进行内核修改，并且相对独立。作为集群工作负载管理器，Slurm有三个关键功能。首先，它在一段时间内为用户分配对资源（计算节点）的独占和/或非独占访问，以便他们可以执行工作。其次，它提供了一个框架，用于在分配的节点集上启动，执行和监视工作（通常是并行作业）。最后，它通过管理待处理工作的队列来仲裁资源争用。
 架构 如图1所示，Slurm包含在每个计算节点上运行的slurmd守护程序和在管理节点上运行的中央slurmctld守护程序（带有可选的故障转移双胞胎）。该slurmd守护程序提供容错层次通信。用户命令包括：sacct，salloc，sattach，sbatch，sbcast，scancel，scontrol， sinfo，SMAP，SQUEUE，SRUN，strigger 和sview。所有命令都可以在群集中的任何位置运行。
 安装 slurm introduction
-sudo apt install munge sudo apt install slurm-wlm  在节点上配置启动munge Install MUNGE for authentication. Make sure that all nodes in your cluster have the same munge.key. Make sure the MUNGE daemon, munged, is started before you start the Slurm daemons.
+sudo apt install munge sudo apt install slurm-wlm 在节点上配置启动munge Install MUNGE for authentication. Make sure that all nodes in your cluster have the same munge.key. Make sure the MUNGE daemon, munged, is started before you start the Slurm daemons.
 在主节点运行create-munge-key,再 systemctl enable munge 打开munge.拷贝/etc/munge/munge.key 到各个计算节点。
-munge -n munge -n | unmunge munge -n | ssh cityu14 unmunge  配置slurm 确保所有节点有同一个用户名，且他们的uid和gid都是统一的。'>
-<meta property='og:url' content='http://home.ustc.edu.cn/~yjianzhu/p/slurm/'>
+munge -n munge -n | unmunge munge -n | ssh cityu14 unmunge 配置slurm 确保所有节点有同一个用户名，且他们的uid和gid都是统一的。'>
+<meta property='og:url' content='http://yjianzhu.github.io/p/slurm/'>
 <meta property='og:site_name' content='yjianzhu&#39;s page'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux' /><meta property='article:tag' content='Software' /><meta property='article:published_time' content='2021-12-28T15:32:22&#43;08:00'/><meta property='article:modified_time' content='2021-12-28T15:32:22&#43;08:00'/><meta property='og:image' content='http://home.ustc.edu.cn/~yjianzhu/Figure/slurm/slurm.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux' /><meta property='article:tag' content='Software' /><meta property='article:published_time' content='2021-12-28T15:32:22&#43;08:00'/><meta property='article:modified_time' content='2021-12-28T15:32:22&#43;08:00'/><meta property='og:image' content='http://yjianzhu.github.io/Figure/slurm/slurm.png' />
 <meta name="twitter:title" content="Slurm">
 <meta name="twitter:description" content="need to be sloved 守护进程slurmctld 从systemctl 启动一直timeout，只能手动启动 尝试用init.d 启动
 Slurm 简介 Slurm是一个开源，容错，高度可扩展的集群管理和作业调度系统，适用于大型和小型Linux集群。Slurm不需要对其操作进行内核修改，并且相对独立。作为集群工作负载管理器，Slurm有三个关键功能。首先，它在一段时间内为用户分配对资源（计算节点）的独占和/或非独占访问，以便他们可以执行工作。其次，它提供了一个框架，用于在分配的节点集上启动，执行和监视工作（通常是并行作业）。最后，它通过管理待处理工作的队列来仲裁资源争用。
 架构 如图1所示，Slurm包含在每个计算节点上运行的slurmd守护程序和在管理节点上运行的中央slurmctld守护程序（带有可选的故障转移双胞胎）。该slurmd守护程序提供容错层次通信。用户命令包括：sacct，salloc，sattach，sbatch，sbcast，scancel，scontrol， sinfo，SMAP，SQUEUE，SRUN，strigger 和sview。所有命令都可以在群集中的任何位置运行。
 安装 slurm introduction
-sudo apt install munge sudo apt install slurm-wlm  在节点上配置启动munge Install MUNGE for authentication. Make sure that all nodes in your cluster have the same munge.key. Make sure the MUNGE daemon, munged, is started before you start the Slurm daemons.
+sudo apt install munge sudo apt install slurm-wlm 在节点上配置启动munge Install MUNGE for authentication. Make sure that all nodes in your cluster have the same munge.key. Make sure the MUNGE daemon, munged, is started before you start the Slurm daemons.
 在主节点运行create-munge-key,再 systemctl enable munge 打开munge.拷贝/etc/munge/munge.key 到各个计算节点。
-munge -n munge -n | unmunge munge -n | ssh cityu14 unmunge  配置slurm 确保所有节点有同一个用户名，且他们的uid和gid都是统一的。"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='http://home.ustc.edu.cn/~yjianzhu/Figure/slurm/slurm.png' />
+munge -n munge -n | unmunge munge -n | ssh cityu14 unmunge 配置slurm 确保所有节点有同一个用户名，且他们的uid和gid都是统一的。"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://yjianzhu.github.io/Figure/slurm/slurm.png' />
     <link rel="shortcut icon" href="Onion.ico" />
 
     </head>
@@ -66,7 +66,7 @@ munge -n munge -n | unmunge munge -n | ssh cityu14 unmunge  配置slurm 确保�
 ">
     
         <div id="article-toolbar">
-            <a href="http://home.ustc.edu.cn/~yjianzhu" class="back-home">
+            <a href="http://yjianzhu.github.io" class="back-home">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <polyline points="15 6 9 12 15 18" />
@@ -82,9 +82,9 @@ munge -n munge -n | unmunge munge -n | ssh cityu14 unmunge  配置slurm 确保�
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/~yjianzhu/p/slurm/">
+            <a href="/p/slurm/">
                 
-                    <img src="/~yjianzhu/Figure/slurm/slurm.png" loading="lazy" alt="Featured image of post Slurm" />
+                    <img src="/Figure/slurm/slurm.png" loading="lazy" alt="Featured image of post Slurm" />
                 
             </a>
         </div>
@@ -94,7 +94,7 @@ munge -n munge -n | unmunge munge -n | ssh cityu14 unmunge  配置slurm 确保�
     
 
     <h2 class="article-title">
-        <a href="/~yjianzhu/p/slurm/">Slurm</a>
+        <a href="/p/slurm/">Slurm</a>
     </h2>
 
     
@@ -240,9 +240,9 @@ firewall-cmd --reload
     
     <section class="article-tags">
         
-            <a href="/~yjianzhu/tags/linux/">Linux</a>
+            <a href="/tags/linux/">Linux</a>
         
-            <a href="/~yjianzhu/tags/software/">software</a>
+            <a href="/tags/software/">software</a>
         
     </section>
 
@@ -304,7 +304,7 @@ firewall-cmd --reload
         
             2020 - 
         
-        2022 yjianzhu&#39;s page
+        2023 yjianzhu&#39;s page
     </section>
     
     <section class="powerby">
@@ -439,7 +439,7 @@ firewall-cmd --reload
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
                 defer="false"
                 >
-            </script><script type="text/javascript" src="/~yjianzhu/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
 
 <script>
     (function () {
